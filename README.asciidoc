@@ -1,0 +1,19 @@
+# AuthSystem
+A module for use in Tcl 8.5/8.6 programs that provides handy API for creating and authorizating users.
+
+Depends on TDBC (for now) and Tcllib.
+
+## Usage
+[squares]
+- ``authsys::use <name of TDBC connection-storing variable> <name of table>``: Tells AuthSystem to use this TDBC connection to read/write user data from the specified table. The specified table must contain ``authsys_username`` and ``authsystem_password`` columns, while the rest (if any) must be either optional or have a default value.
+- ``authsys::register <username> <password>``: Creates a user with the specified username and password. If a user exists or the username contains invalid characters, an error is thrown.
+- ``authsys::passwordcorrect <username> <password>``: Checks if the specified username and password are correct. If yes, returns ``1``, otherwise, returns ``0``.
+- ``authsys::exists <username>``: Checks if the specified user is already registered. If yes, returns ``1``, otherwise, returns ``0``.
+- ``authsys::authtoken <username> <password> [<days>]``: Creates an auth token that can be used to create user sessions. Useful for web apps, you should store the returned value as a cookie. By default, the returned token is valid for 3 days, but you can optionally specify a different number of days as the third argument. Returns a string.
+- ``authsys::tokencorrect <token>``: Returns ``1`` if the token is valid, otherwise, returns ``0``.
+
+## Example
+See ``demo.tcl`` (requires TDBC Sqlite3 driver to be present on your system to run).
+
+## License
+As always, MIT License.
