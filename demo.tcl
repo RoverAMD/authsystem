@@ -23,7 +23,7 @@ if {$choice == 1} {
 		exit 2
 	}
 	authsys::register $un $password
-	puts "Created user \"$username\" with password \"$password\".'
+	puts "Created user \"$username\" with password \"$password\"."
 } elseif {$choice == 2} {
 	set token [authsys::authtoken $un $password] ;# if the username, password is incorrect or the token itself has expired, then tokencorrect returns 0
 	if {! [authsys::tokencorrect $token]} {
